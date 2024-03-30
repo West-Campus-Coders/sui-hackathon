@@ -6,6 +6,8 @@ import casino from './assets/casino.png'
 import { createNetworkConfig, SuiClientProvider, WalletProvider } from '@mysten/dapp-kit';
 import { getFullnodeUrl } from '@mysten/sui.js/client';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 
  
 const { networkConfig } = createNetworkConfig({
@@ -17,7 +19,8 @@ const queryClient = new QueryClient();
 
 
 function App() {
-
+	const navigate = useNavigate();
+	async function go_to_blackjack(){navigate('/blackjack')}
   return (
 <QueryClientProvider client={queryClient}>
 <SuiClientProvider networks={networkConfig} defaultNetwork="localnet">
@@ -29,7 +32,7 @@ function App() {
 	</nav>
 	<container className='left-container'>
 		<h1>Choose A Game</h1>
-		<Button variant='contained' color='primary'>BlackJack</Button>
+		<Button variant='contained' color='primary' onClick={go_to_blackjack}>BlackJack</Button>
 	</container>
 </body>
 </WalletProvider>
