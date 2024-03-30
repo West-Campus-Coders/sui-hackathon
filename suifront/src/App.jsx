@@ -4,18 +4,18 @@ import { ConnectButton } from '@mysten/dapp-kit';
 
 
 function App() {
- 
 
-  return (
+return (
     <>
-<div>
+		<div>
 			<nav>
 				<ConnectButton />
 			</nav>
-			<section>Hello, world</section>
+			<p>hello</p>
+
 		</div>
     </>
-  )
+)
 }
 
 export default App
