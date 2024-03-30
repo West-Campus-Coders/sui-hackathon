@@ -2,6 +2,8 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import GameLobby from './GameLobby.jsx'
 import './index.css'
+import App from './App.jsx'
+import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 
 // import { SuiClientProvider, WalletProvider } from '@mysten/dapp-kit';
 // import { getFullnodeUrl } from '@mysten/sui.js/client';
@@ -15,6 +17,21 @@ import './index.css'
 // 	mainnet: { url: getFullnodeUrl('mainnet') },
 // };
 
+
+
+const router = createBrowserRouter([
+	{
+		path: '/',
+		element: <App />,
+	},
+	{
+		path: '/blackjack',
+		element: <GameLobby />,
+	},
+]);
+
+
 ReactDOM.createRoot(document.getElementById('root')).render(
-	<GameLobby/>
+<RouterProvider router={router}/>
+
 )
