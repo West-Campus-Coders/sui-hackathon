@@ -709,7 +709,7 @@ export default class GameLobby extends Component {
     return (
       <div className='App'>
       <div className='gameHeader'>
-        <h1>Blackjack</h1>
+        <h1>Welcome to blackjack you filthy animals</h1>
         {/* If game isn't started show Start Game button else show New Deck */}
         {this.state.gameStarted ? (
           <div>
