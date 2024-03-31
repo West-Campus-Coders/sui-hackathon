@@ -571,6 +571,7 @@ export default class GameLobby extends Component {
   // Return corresponding blackjack value from input card value
   returnValue(value) {
     const cardValues = {
+      
       ACE: 11,
       KING: 10,
       QUEEN: 10,
@@ -709,13 +710,14 @@ export default class GameLobby extends Component {
     return (
       <div className='App'>
       <div className='gameHeader'>
-        <h1>Welcome to blackjack you filthy animals</h1>
+        <h1 className = 'Header'>Welcome to blackjack you filthy animals</h1>
         {/* If game isn't started show Start Game button else show New Deck */}
         {this.state.gameStarted ? (
           <div>
-            <button className='sm red' onClick={() => this.handleEndGame()}>
-              New Game
-            </button>
+            
+            <button class="button-64" role="button"><span class="text" onClick={() => this.handleEndGame()}>
+			            New Game
+		        </span></button>
           </div>
         ) : (
           ''
@@ -776,9 +778,12 @@ export default class GameLobby extends Component {
         clearBets={this.clearBets}
       />
       {!this.state.gameStarted ? (
-        <button className='lg purple' onClick={() => this.handleDealHand()}>
-          Deal!
-        </button>
+        
+        <button class="button-64" role="button"><span class="text" onClick={() => this.handleDealHand()}>
+        Deal!
+  </span></button>
+
+        
       ) : (
         ''
       )}

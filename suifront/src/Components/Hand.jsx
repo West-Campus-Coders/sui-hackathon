@@ -61,18 +61,15 @@ export default class Hand extends Component {
             <div className='cards-container'>{cards}</div>
             {this.props.playerPlaying ? (
               <div className='playingButtons'>
-                <button
-                  className='sm'
-                  onClick={(event) => this.props.handleDrawCardEvent(event)}
-                >
-                  Hit
-                </button>
-                <button
-                  className='sm'
-                  onClick={(event) => this.props.handleStandEvent(event)}
-                >
-                  Stand
-                </button>
+                
+                <button class="button-64" role="button"><span class="text" onClick={(event) => this.props.handleDrawCardEvent(event)}>
+			            Hit
+		        </span></button>
+                
+
+                <button class="button-64" role="button"><span class="text" onClick={(event) => this.props.handleStandEvent(event)}>
+			            Stand
+		        </span></button>
                 {this.props.cards.length === 2 ? (
                   <button
                     className='sm'
