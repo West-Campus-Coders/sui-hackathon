@@ -7,6 +7,7 @@ import {createBrowserRouter, RouterProvider} from 'react-router-dom'
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 import { SuiClientProvider, WalletProvider } from '@mysten/dapp-kit'
 import Roulette from './roulette.jsx'
+import Slots from './Slots.jsx'
 const queryClient = new QueryClient();
 
 const router = createBrowserRouter([
@@ -22,6 +23,11 @@ const router = createBrowserRouter([
 		path: '/roulette',
 		element: <Roulette />,
 	},
+	{
+		path: '/slots',
+		element: <Slots />,
+	
+	}
 ]);
 
 

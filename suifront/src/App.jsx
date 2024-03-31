@@ -13,22 +13,49 @@ import chippie from './assets/smallchippies.jpg'
 import { useDataStore } from './Store';
 
 const { networkConfig } = createNetworkConfig({
-	localnet: { url: getFullnodeUrl('localnet') },
-	//mainnet: { url: getFullnodeUrl('mainnet') },
+	devnet: { url: getFullnodeUrl('devnet') },
 });
+
+const txb = new TransactionBlock();
+
+const [coin] = txb.splitCoins(txb.gas, [txb.pure(100)])
 
 
 function App() {
 	const navigate = useNavigate();
 	async function go_to_blackjack(){navigate('/blackjack')}
+	async function go_to_roulette(){navigate('/roulette')}
+	async function go_to_slots(){navigate('/slots')}
 	const currentAccount = useCurrentAccount();
 	const [tobuy, setToBuy] = useState(0);
 	const [userChips, setUserChips] = useDataStore(state => [state.userChips, state.setUserChips]);
 	const [clicked, setClicked] = useState(false);
+	const {mutate: signAndExecute} = useSignAndExecuteTransactionBlock();
+	
+	
+
 	const buy_clicked = () => {
 		setClicked(true);
 	}
 	const user_chips = () => {
+		// signAndExecute(
+		// 	{
+		// 		networkConfig,
+		// 		transactionBlock: txb,
+		// 	  options: {
+		// 		showEffects: true,
+		// 		showObjectChanges: true,
+		// 	  },
+		// 	},
+		// 	{
+		// 	  onSuccess: (tx) => {
+		// 		client.waitForTransactionBlock({ digest: tx.digest }).then(() => {
+		// 		  refetch();
+		// 		});
+		// 	  },
+		// 	},
+		//   );
+		  console.log(coin)
 		setUserChips(tobuy * 100);
 		setClicked(false);
 	}
@@ -55,6 +82,8 @@ return (
 			</div>
 			</> ) : (<></>) }
 		<Button variant='contained' color='primary' onClick={go_to_blackjack}>BlackJack</Button>
+		<Button variant='contained' color='primary' onClick={go_to_roulette}>Roulette</Button>
+		<Button variant='contained' color='primary' onClick={go_to_slots}>Slots</Button>
 	</container>
 	</body>
 	) :( <h1>Please Connect your Wallet</h1>)}
