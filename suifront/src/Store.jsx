@@ -1,13 +1,7 @@
-import "./App.css";
-import { Component } from "react";
-import Chips from "./Components/Chips";
-
-export default class Store extends Component {
-    render(){
-        return(
-            <div><p>hello</p></div>
-        )
-    }
+import {create} from 'zustand'
 
 
-}
+export const useDataStore = create((set) => ({
+    userChips: 0,
+    setUserChips: (userChips) => set({userChips: userChips}),
+}))
