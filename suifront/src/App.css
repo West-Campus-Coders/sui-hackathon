@@ -73,7 +73,7 @@
 	line-height: 1.6;
 	text-align: center;
 
-  
+  z-index: -1;
   display:flex;
   flex-direction:row;
   justify-content: space-evenly;
@@ -101,3 +101,19 @@ h1 {
 }
 
 
+#connect{
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  z-index: 100;
+}
+
+#chippy{
+  padding: 20px;
+}
+
+#spacer{
+  padding: 10%;
+}

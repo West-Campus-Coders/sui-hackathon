@@ -1,83 +1,66 @@
 
 import './App.css'
-import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { ConnectButton } from '@mysten/dapp-kit';
-import {Button} from '@mui/material' 
+import { ConnectButton, useCurrentAccount, useSignAndExecuteTransactionBlock, createNetworkConfig, SuiClientProvider, WalletProvider, useSuiClient } from '@mysten/dapp-kit';
+import {Button, Box, Container, Input} from '@mui/material' 
 import casino from './assets/casino.png'
-import { createNetworkConfig, SuiClientProvider, WalletProvider } from '@mysten/dapp-kit';
 import { getFullnodeUrl } from '@mysten/sui.js/client';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Box, Stack } from '@mui/system';
-import { Typography } from '@mui/material';
-
-const theme = createTheme({
-	palette: {
-	  ochre: {
-		main: '#ffffff',
-		
-		
-	  },
-	},
-	
-  });
-
-
+import { TransactionBlock } from '@mysten/sui.js/transactions';
+import { useState } from 'react';
+import zIndex from '@mui/material/styles/zIndex';
+import chippie from './assets/smallchippies.jpg'
+import { useDataStore } from './Store';
 
 const { networkConfig } = createNetworkConfig({
 	localnet: { url: getFullnodeUrl('localnet') },
-	mainnet: { url: getFullnodeUrl('mainnet') },
+	//mainnet: { url: getFullnodeUrl('mainnet') },
 });
-
-const queryClient = new QueryClient();
-
-
 
 
 function App() {
 	const navigate = useNavigate();
 	async function go_to_blackjack(){navigate('/blackjack')}
-	async function go_to_store(){navigate('/Store')}
-
+	const currentAccount = useCurrentAccount();
+	const [tobuy, setToBuy] = useState(0);
+	const [userChips, setUserChips] = useDataStore(state => [state.userChips, state.setUserChips]);
+	const [clicked, setClicked] = useState(false);
+	const buy_clicked = () => {
+		setClicked(true);
+	}
+	const user_chips = () => {
+		setUserChips(tobuy * 100);
+		setClicked(false);
+	}
+	async function handleChange(event){
+		setToBuy(event.target.value);
+	}
 return (
-<QueryClientProvider client={queryClient}>
-<SuiClientProvider networks={networkConfig} defaultNetwork="localnet">
-<WalletProvider>
-<ThemeProvider theme={theme}>
-<body id='app'>
-	
-	<container className='left-container'>
-		<div>
-		<h1 >Choose A Game</h1>
-		</div>
-		<div>
-		<button class="button-64" role="button"><span class="text" onClick={go_to_blackjack}>
-			Black Jack
-		</span></button>
-			
-		</div>
-		
-		<div>
-		<button class="button-64" role="button"><span class="text" onClick={go_to_store}>
-			Store
-		</span></button>
-		</div>
-		<div>
-			<ConnectButton/>
-		</div>
+<>
+<div  id='connect'> <ConnectButton/></div>
+	<div>
+	{currentAccount ? (
+		<body id='app'>
+		<img src={casino} id='bg'/>
+		<container className='left-container'>
+		<h1>Choose A Game</h1>
+		<Button variant='contained' color='primary' onClick={buy_clicked}>Buy Chips</Button>
+		{clicked ? (<>
+			<h1>BUY CHIPPIES!</h1>
+			<img id="chippy" src={chippie}/>
+			<h3>Each SUI you spend gets 100 chippies to use in the casino.</h3>
+			<Input value={tobuy} placeholder='Enter Amount of SUI to Spend' onChange={handleChange}/>
+			<div id='spacer'>
+			<Button variant='contained' color='primary' onClick={user_chips}>Buy Chippies</Button>
+			</div>
+			</> ) : (<></>) }
+		<Button variant='contained' color='primary' onClick={go_to_blackjack}>BlackJack</Button>
 	</container>
+	</body>
+	) :( <h1>Please Connect your Wallet</h1>)}
+		</div>
 
-
-	<container className='right-container'>
-		<img src={casino} id='intro-image'/>
-	</container>
-
-</body>
-</ThemeProvider>
-</WalletProvider>
-</SuiClientProvider>
-</QueryClientProvider>
+</>
 )
 }
 
